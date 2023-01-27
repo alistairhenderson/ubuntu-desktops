@@ -30,7 +30,7 @@ fi
 
 if [ "$network_setup" == "Y" ]; then
 
-tee /etc/netplan/00-installer-config.yaml  << EOF
+tee /etc/netplan/02-static-ip.yaml  << EOF
 # Set static ip address for enp1s0 interface
 network:
     version: 2
