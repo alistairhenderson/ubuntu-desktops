@@ -44,7 +44,10 @@ network:
                 - $ip/$subnet
             nameservers:
                 addresses:
-                    - $dns1
-            gateway4: $gateway
+                    search: [radius-systems-ads]
+                    addresses: [$dns1, $dns2]
+            routes:
+                - to: default
+                  via: $gateway
 EOF
 fi
