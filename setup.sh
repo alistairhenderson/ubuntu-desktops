@@ -3,8 +3,8 @@ network_setup=$1
 ip=$2
 subnet=$3
 gateway=$4
-DNS_1=$5
-DNS_2=$6
+dns1=$5
+dns2=$6
 domain=$7
 
 if [ -z "$ip" ]; then 
@@ -16,7 +16,7 @@ else
 
 
 apt update
-apt upgrade
+apt upgrade -y
 
 cd /tmp
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -28,6 +28,8 @@ fi
 
 
 if [ "$network_setup" == "Y" ]; then
+
+tee /etc/netplan/00-installer-config.yaml  << EOF
 # This is the network config written by 'subiquity'
 network:
   ethernets:
@@ -42,4 +44,5 @@ network:
                   search: [$domain]
                   addresses: [$dns1, $dns2]
   version: 2
+EOF
 fi
