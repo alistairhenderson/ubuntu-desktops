@@ -31,19 +31,20 @@ fi
 if [ "$network_setup" == "Y" ]; then
 
 tee /etc/netplan/00-installer-config.yaml  << EOF
-# This is the network config written by 'subiquity'
+# Set static ip address for enp1s0 interface
 network:
-  ethernets:
-    wlp1s0:
-            #dhcp4: true
+    version: 2
+    renderer: NetworkManager
+    ethernets:
+        id0:
+            match:
+                name: wlp1s0
+            dhcp4: false
             addresses:
                 - $ip/$subnet
-            routes:
-                - to: default
-                  via: $gateway
             nameservers:
-                  search: [$domain]
-                  addresses: [$dns1, $dns2]
-  version: 2
+                addresses:
+                    - $dns1
+            gateway4: $gateway
 EOF
 fi
