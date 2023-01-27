@@ -31,23 +31,18 @@ fi
 if [ "$network_setup" == "Y" ]; then
 
 tee /etc/netplan/02-static-ip.yaml  << EOF
-# Set static ip address for enp1s0 interface
 network:
-    version: 2
-    renderer: NetworkManager
-    ethernets:
-        id0:
-            match:
-                name: wlp1s0
-            dhcp4: false
-            addresses:
-                - $ip/$subnet
-            nameservers:
-                addresses:
-                    search: [radius-systems-ads]
-                    addresses: [$dns1, $dns2]
-            routes:
-                - to: default
-                  via: $gateway
+  version: 2
+  renderer: networkd
+  ethernets:
+    wlp1s0:
+      addresses:
+        - $ip/$gateway
+      nameservers:
+        search: [$domain]
+        addresses: [$dns1, $dns2]
+      routes: 
+        - to: default
+          via: $gateway
 EOF
 fi
