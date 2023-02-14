@@ -25,8 +25,6 @@ dpkg -i google-chrome-stable_current_amd64.deb
 
 rm google-chrome-stable_current_amd64*
 
-dconf write /org/gnome/desktop/screensaver/lock-enabled false
-
 
 fi
 
@@ -40,7 +38,7 @@ network:
   ethernets:
     wlp1s0:
       addresses:
-        - $ip/$gateway
+        - $ip/16
       nameservers:
         search: [$domain]
         addresses: [$dns1, $dns2]
@@ -49,3 +47,7 @@ network:
           via: $gateway
 EOF
 fi
+
+
+
+
