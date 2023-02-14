@@ -49,5 +49,7 @@ EOF
 fi
 
 
+netplan apply
+
 
 
